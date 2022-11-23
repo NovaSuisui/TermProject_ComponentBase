@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author SK
+ * @author Dylan
  */
 @Entity
 @Table(name = "CV19DDC")
@@ -46,8 +46,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Cv19ddc.findByCaseNewDiff", query = "SELECT c FROM Cv19ddc c WHERE c.caseNewDiff = :caseNewDiff"),
     @NamedQuery(name = "Cv19ddc.findByDeathNewPrev", query = "SELECT c FROM Cv19ddc c WHERE c.deathNewPrev = :deathNewPrev"),
     @NamedQuery(name = "Cv19ddc.findByDeathNewDiff", query = "SELECT c FROM Cv19ddc c WHERE c.deathNewDiff = :deathNewDiff"),
-    @NamedQuery(name = "Cv19ddc.findByUpdateDate", query = "SELECT c FROM Cv19ddc c WHERE c.updateDate = :updateDate"),
-    @NamedQuery(name = "Cv19ddc.findByUpdateTime", query = "SELECT c FROM Cv19ddc c WHERE c.updateTime = :updateTime")})
+    @NamedQuery(name = "Cv19ddc.findByUpdateDate", query = "SELECT c FROM Cv19ddc c WHERE c.updateDate = :updateDate")})
 public class Cv19ddc implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -91,11 +90,8 @@ public class Cv19ddc implements Serializable {
     @Column(name = "DEATH_NEW_DIFF")
     private Integer deathNewDiff;
     @Column(name = "UPDATE_DATE")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updateDate;
-    @Column(name = "UPDATE_TIME")
-    @Temporal(TemporalType.TIME)
-    private Date updateTime;
 
     public Cv19ddc() {
     }
@@ -254,14 +250,6 @@ public class Cv19ddc implements Serializable {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
     }
 
     @Override

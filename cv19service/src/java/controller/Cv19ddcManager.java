@@ -5,17 +5,26 @@
  */
 package controller;
 
+import java.text.ParseException;
 import model.Cv19ddc;
+import static model.Cv19ddcFactory.Cv19ddcFactory;
 import model.Cv19ddcTable;
+import util.Cv19DDCOpenDataClient;
 
 /**
  *
  * @author SK
  */
 public class Cv19ddcManager {
-    public void setData(){
+    public void setData() throws ParseException{
         Cv19ddc cv = new Cv19ddc();
+        Cv19DDCOpenDataClient sv = new Cv19DDCOpenDataClient();
+        String jsn = sv.findAll_JSON(String.class);
+        System.out.println(jsn);
+        cv = Cv19ddcFactory(cv, jsn);
         Cv19ddcTable cvt = new Cv19ddcTable();
+        if(!cvt.insertData(cv))
+            cvt.updateData(cv);
     }
     public void getData(){
         

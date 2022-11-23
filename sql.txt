@@ -19,7 +19,7 @@ case_new_diff int,
 death_new_prev int,
 death_new_diff int,
 update_date date,
-update_time time
+update_time timestamp
 );
 
 "year":2022

@@ -34,7 +34,7 @@ public class Cv19ddcTable {
         }
     }
     
-    public static boolean insertData(Cv19ddc cv) {
+    public boolean insertData(Cv19ddc cv) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
@@ -56,7 +56,7 @@ public class Cv19ddcTable {
             return status;
         }
     }
-    public static void updateData(Cv19ddc cv) {
+    public void updateData(Cv19ddc cv) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
         EntityManager em = emf.createEntityManager();
         Cv19ddc fromDb = em.find(Cv19ddc.class, cv.getId());
@@ -78,7 +78,6 @@ public class Cv19ddcTable {
         fromDb.setDeathNewPrev(cv.getDeathNewPrev());
         fromDb.setDeathNewDiff(cv.getDeathNewDiff());
         fromDb.setUpdateDate(cv.getUpdateDate());
-        fromDb.setUpdateTime(cv.getUpdateTime());
         
         em.getTransaction().begin();
         System.out.println("Updat data...");
@@ -95,21 +94,21 @@ public class Cv19ddcTable {
             em.close();
         }
     }
-    public static Cv19ddc findDataById(Integer id) {
+    public Cv19ddc findDataById(Integer id) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
         EntityManager em = emf.createEntityManager();
         Cv19ddc cv = em.find(Cv19ddc.class, id);
         em.close();
         return cv;
     }
-    public static List<Cv19ddc> findAllData() {
+    public List<Cv19ddc> findAllData() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
         EntityManager em = emf.createEntityManager();
         List<Cv19ddc> cvList = (List<Cv19ddc>) em.createNamedQuery("Student.findAll").getResultList();
         em.close();
         return cvList;
     }
-    public static List<Cv19ddc> findDataByName(String name) {
+    public List<Cv19ddc> findDataByName(String name) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("Student.findByName");
@@ -118,7 +117,7 @@ public class Cv19ddcTable {
         em.close();
         return cvList;
     }
-    public static void removeData(Cv19ddc cv) {
+    public void removeData(Cv19ddc cv) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
         EntityManager em = emf.createEntityManager();
         Cv19ddc fromDb = em.find(Cv19ddc.class, cv.getId());
@@ -137,7 +136,7 @@ public class Cv19ddcTable {
             em.close();
         }           
     }
-    public static void removeAllData(){
+    public void removeAllData(){
         List<Cv19ddc> cv = findAllData();
         for(Cv19ddc obj : cv){
             removeData(obj);
