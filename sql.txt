@@ -1,0 +1,42 @@
+create table cv19DDC
+(
+id int primary key,
+yearnum int,
+weeknum int,
+new_case int,
+total_case int,
+new_case_excludeabroad int,
+total_case_excludeabroad int,
+new_recovered int,
+total_recovered int,
+new_death int,
+total_death int,
+case_foreign int,
+case_prison int,
+case_walkin int,
+case_new_prev int,
+case_new_diff int,
+death_new_prev int,
+death_new_diff int,
+update_date date,
+update_time time
+);
+
+"year":2022
+"weeknum":46
+"new_case":3957
+"total_case":4702330
+"new_case_excludeabroad":3957
+"total_case_excludeabroad":4677255
+"new_recovered":0
+"total_recovered":4647275
+"new_death":69
+"total_death":33106
+"case_foreign":0
+"case_prison":0
+"case_walkin":3957
+"case_new_prev":3825
+"case_new_diff":132
+"death_new_prev":66
+"death_new_diff":3
+"update_date":"2022-11-21 12:29:40"
