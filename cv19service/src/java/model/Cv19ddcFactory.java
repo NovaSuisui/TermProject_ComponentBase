@@ -76,7 +76,7 @@ public class Cv19ddcFactory {
                 break;
                 case "\"update_date\"":
                     jsnsw[1] = jsnsw[1].substring(1, jsnsw[1].length()-1);
-                    cv.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(jsnsw[1]));
+                    //cv.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(jsnsw[1]));
                 break;
                 default:
                     System.out.println("error on "+str);

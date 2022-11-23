@@ -5,6 +5,8 @@
  */
 package services;
 
+import controller.Cv19ddcManager;
+import java.text.ParseException;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -23,4 +25,15 @@ public class Cv19WebServices {
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "SetData")
+    public String SetData() throws ParseException {
+        Cv19ddcManager.setData();
+        return null;
+    }
+    
+    
 }

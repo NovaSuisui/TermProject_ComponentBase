@@ -16,7 +16,7 @@ import util.Cv19DDCOpenDataClient;
  * @author SK
  */
 public class Cv19ddcManager {
-    public void setData() throws ParseException{
+    public static void setData() throws ParseException{
         Cv19ddc cv = new Cv19ddc();
         Cv19DDCOpenDataClient sv = new Cv19DDCOpenDataClient();
         String jsn = sv.findAll_JSON(String.class);
@@ -26,7 +26,7 @@ public class Cv19ddcManager {
         if(!cvt.insertData(cv))
             cvt.updateData(cv);
     }
-    public void getData(){
+    public static void getData(){
         
     }
 }

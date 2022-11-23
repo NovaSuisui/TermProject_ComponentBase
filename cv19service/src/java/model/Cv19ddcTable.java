@@ -18,7 +18,7 @@ import javax.persistence.Query;
  * @author SK
  */
 public class Cv19ddcTable {
-    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
+    /*private EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
 
     public void persist(Object object) {
         EntityManager em = emf.createEntityManager();
@@ -32,10 +32,10 @@ public class Cv19ddcTable {
         } finally {
             em.close();
         }
-    }
+    }*/
     
     public boolean insertData(Cv19ddc cv) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         System.out.println("Insert data...");
@@ -47,6 +47,7 @@ public class Cv19ddcTable {
             System.out.println("Insert Complete!!");
             status = true;
         } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
             e.printStackTrace();
             em.getTransaction().rollback();
             System.out.println("Insert Incomplete");
@@ -57,7 +58,7 @@ public class Cv19ddcTable {
         }
     }
     public void updateData(Cv19ddc cv) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
         EntityManager em = emf.createEntityManager();
         Cv19ddc fromDb = em.find(Cv19ddc.class, cv.getId());
         
@@ -77,7 +78,7 @@ public class Cv19ddcTable {
         fromDb.setCaseNewDiff(cv.getCaseNewDiff());
         fromDb.setDeathNewPrev(cv.getDeathNewPrev());
         fromDb.setDeathNewDiff(cv.getDeathNewDiff());
-        fromDb.setUpdateDate(cv.getUpdateDate());
+        //fromDb.setUpdateDate(cv.getUpdateDate());
         
         em.getTransaction().begin();
         System.out.println("Updat data...");
@@ -87,6 +88,7 @@ public class Cv19ddcTable {
             em.getTransaction().commit();
             System.out.println("Update Complete!!");
         } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
             e.printStackTrace();
             em.getTransaction().rollback();
             System.out.println("Update Incomplete");
@@ -95,21 +97,21 @@ public class Cv19ddcTable {
         }
     }
     public Cv19ddc findDataById(Integer id) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
         EntityManager em = emf.createEntityManager();
         Cv19ddc cv = em.find(Cv19ddc.class, id);
         em.close();
         return cv;
     }
     public List<Cv19ddc> findAllData() {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
         EntityManager em = emf.createEntityManager();
         List<Cv19ddc> cvList = (List<Cv19ddc>) em.createNamedQuery("Student.findAll").getResultList();
         em.close();
         return cvList;
     }
     public List<Cv19ddc> findDataByName(String name) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
         EntityManager em = emf.createEntityManager();
         Query query = em.createNamedQuery("Student.findByName");
         query.setParameter("name", name);
@@ -118,7 +120,7 @@ public class Cv19ddcTable {
         return cvList;
     }
     public void removeData(Cv19ddc cv) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("CV19ServicePU");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
         EntityManager em = emf.createEntityManager();
         Cv19ddc fromDb = em.find(Cv19ddc.class, cv.getId());
         em.getTransaction().begin();
