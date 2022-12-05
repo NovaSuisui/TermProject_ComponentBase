@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/Cv19RestToSoapService/RestToSoapWebService?WSDL" uri="src/conf/xml-resources/web-service-references/RestToSoapWebService/wsdl/localhost_8080/Cv19RestToSoapService/RestToSoapWebService.wsdl"/>
+    <system systemId="http://localhost:8080/Cv19RestToSoapService/RestToSoapWebService?xsd=1" uri="src/conf/xml-resources/web-service-references/RestToSoapWebService/wsdl/localhost_8080/Cv19RestToSoapService/RestToSoapWebService.xsd_1.xsd"/>
+    <system systemId="http://laptop-e98p778l:8080/Cv19RestToSoapService/RestToSoapWebService?wsdl" uri="src/conf/xml-resources/web-service-references/RestToSoapWebService_1/wsdl/laptop-e98p778l_8080/Cv19RestToSoapService/RestToSoapWebService.wsdl"/>
+    <system systemId="http://laptop-e98p778l:8080/Cv19RestToSoapService/RestToSoapWebService?xsd=1" uri="src/conf/xml-resources/web-service-references/RestToSoapWebService_1/wsdl/laptop-e98p778l_8080/Cv19RestToSoapService/RestToSoapWebService.xsd_1.xsd"/>
+</catalog>

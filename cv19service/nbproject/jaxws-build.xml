@@ -19,11 +19,11 @@
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </taskdef>
     </target>
-    <target name="wsgen-Cv19WebServices" depends="wsgen-init">
+    <target name="wsgen-Cv19WebService" depends="wsgen-init">
         <copy todir="${build.classes.dir}/META-INF">
-            <fileset dir="${webinf.dir}" includes="wsit-services.Cv19WebServices.xml"/>
+            <fileset dir="${webinf.dir}" includes="wsit-services.Cv19WebService.xml"/>
         </copy>
-        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="services.Cv19WebServices" xendorsed="true">
+        <wsgen sourcedestdir="${build.generated.sources.dir}/jax-ws" resourcedestdir="${build.generated.sources.dir}/jax-ws/resources/" destdir="${build.generated.sources.dir}/jax-ws" verbose="true" keep="true" genwsdl="true" sei="services.Cv19WebService" xendorsed="true">
             <classpath path="${java.home}/../lib/tools.jar:${build.classes.dir}:${j2ee.platform.wsgen.classpath}:${javac.classpath}"/>
         </wsgen>
     </target>
@@ -32,4 +32,48 @@
                 JAX-WS WSIMPORT SECTION
                 ===================
             -->
+    <target name="wsimport-init" depends="init">
+        <fail if="${wsimport.bad.version}" message="WsImport ant task defined in the classpath ${j2ee.platform.wsimport.classpath} has a serious bug. See http://wiki.netbeans.org/MetroIssue for details."/>
+        <mkdir dir="${build.generated.sources.dir}/jax-ws"/>
+        <property name="j2ee.platform.wsimport.classpath" value="${libs.jaxws21.classpath}"/>
+        <taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+            <classpath path="${java.home}/../lib/tools.jar:${j2ee.platform.wsimport.classpath}:${javac.classpath}"/>
+        </taskdef>
+        <condition property="conf-dir" value="${conf.dir}/" else="">
+            <isset property="conf.dir"/>
+        </condition>
+    </target>
+    <target name="wsimport-client-RestToSoapWebService" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/RestToSoapWebService"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/RestToSoapWebService" destdir="${build.generated.dir}/jax-wsCache/RestToSoapWebService" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/RestToSoapWebService/wsdl/localhost_8080/Cv19RestToSoapService/RestToSoapWebService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/Cv19RestToSoapService/RestToSoapWebService?WSDL" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/RestToSoapWebService/wsdl/localhost_8080/Cv19RestToSoapService/RestToSoapWebService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/RestToSoapWebService"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/RestToSoapWebService">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-RestToSoapWebService" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/services"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/RestToSoapWebService"/>
+    </target>
+    <target name="wsimport-client-RestToSoapWebService_1" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/RestToSoapWebService_1"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/RestToSoapWebService_1" destdir="${build.generated.dir}/jax-wsCache/RestToSoapWebService_1" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/RestToSoapWebService_1/wsdl/laptop-e98p778l_8080/Cv19RestToSoapService/RestToSoapWebService.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://laptop-e98p778l:8080/Cv19RestToSoapService/RestToSoapWebService?wsdl" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/RestToSoapWebService_1/wsdl/laptop-e98p778l_8080/Cv19RestToSoapService/RestToSoapWebService.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/RestToSoapWebService_1"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/RestToSoapWebService_1">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-RestToSoapWebService_1" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/services"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/RestToSoapWebService_1"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-RestToSoapWebService, wsimport-client-RestToSoapWebService_1"/>
 </project>

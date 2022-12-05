@@ -7,6 +7,7 @@ package model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import services.Cv19DdcTemplate;
 
 /**
  *
@@ -14,76 +15,27 @@ import java.text.SimpleDateFormat;
  */
 public class Cv19ddcFactory {
 
-    public static Cv19ddc Cv19ddcFactory(Cv19ddc cv, String jsn) throws ParseException {
-        cv.setId(1);
-        jsn = jsn.substring(2, jsn.length()-2);
-        String[] jsnspl = jsn.split(",");
-        String[] jsnsw;
-        for(String str:jsnspl){
-            System.out.println(str);
-            jsnsw = str.split(":", 2);
-            switch(jsnsw[0]){
-                case "\"year\"":
-                    cv.setYearnum(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"weeknum\"":
-                    cv.setYearnum(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"new_case\"":
-                    cv.setNewCase(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"total_case\"":
-                    cv.setTotalCase(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"new_case_excludeabroad\"":
-                    cv.setNewCaseExcludeabroad(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"total_case_excludeabroad\"":
-                    cv.setTotalCaseExcludeabroad(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"new_recovered\"":
-                    cv.setNewRecovered(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"total_recovered\"":
-                    cv.setTotalRecovered(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"new_death\"":
-                    cv.setNewDeath(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"total_death\"":
-                    cv.setTotalDeath(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"case_foreign\"":
-                    cv.setCaseForeign(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"case_prison\"":
-                    cv.setCasePrison(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"case_walkin\"":
-                    cv.setCaseWalkin(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"case_new_prev\"":
-                    cv.setCaseNewPrev(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"case_new_diff\"":
-                    cv.setCaseNewDiff(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"death_new_prev\"":
-                    cv.setDeathNewPrev(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"death_new_diff\"":
-                    cv.setDeathNewDiff(Integer.parseInt(jsnsw[1]));
-                break;
-                case "\"update_date\"":
-                    jsnsw[1] = jsnsw[1].substring(1, jsnsw[1].length()-1);
-                    //cv.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(jsnsw[1]));
-                break;
-                default:
-                    System.out.println("error on "+str);
-                break;
-            }            
-        }
-        
+    public static Cv19ddc Cv19ddcFactory(Cv19ddc cv, Cv19DdcTemplate cvs) throws ParseException {
+        Cv19ddcPK cvPK = new Cv19ddcPK();
+        cvPK.setYearnum(cvs.getYearnum());
+        cvPK.setWeeknum(cvs.getWeeknum());
+        cv.setCv19ddcPK(cvPK);
+        cv.setNewCase(cvs.getNewCase());
+        cv.setTotalCase(cvs.getTotalCase());
+        cv.setNewCaseExcludeabroad(cvs.getNewCaseExcludeabroad());
+        cv.setTotalCaseExcludeabroad(cvs.getTotalCaseExcludeabroad());
+        cv.setNewRecovered(cvs.getNewRecovered());
+        cv.setTotalRecovered(cvs.getTotalRecovered());
+        cv.setNewDeath(cvs.getNewDeath());
+        cv.setTotalDeath(cvs.getTotalDeath());
+        cv.setCaseForeign(cvs.getCaseForeign());
+        cv.setCasePrison(cvs.getCasePrison());
+        cv.setCaseWalkin(cvs.getCaseWalkin());
+        cv.setCaseNewPrev(cvs.getCaseNewPrev());
+        cv.setCaseNewDiff(cvs.getCaseNewDiff());
+        cv.setDeathNewPrev(cvs.getDeathNewPrev());
+        cv.setDeathNewDiff(cvs.getDeathNewDiff());
+        cv.setUpdateDate(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(cvs.getUpdateDate()));
         return cv;
     }
 }

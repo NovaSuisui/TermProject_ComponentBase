@@ -39,7 +39,7 @@ public class Cv19ddcTable {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
         System.out.println("Insert data...");
-        System.out.println("Data : "+cv.getId());
+        System.out.println("Data : "+cv.getCv19ddcPK().toString());
         boolean status = false;
         try {
             em.persist(cv);
@@ -48,7 +48,6 @@ public class Cv19ddcTable {
             status = true;
         } catch (Exception e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
-            e.printStackTrace();
             em.getTransaction().rollback();
             System.out.println("Insert Incomplete");
             status = false;
@@ -57,13 +56,12 @@ public class Cv19ddcTable {
             return status;
         }
     }
-    public void updateData(Cv19ddc cv) {
+    public boolean updateData(Cv19ddc cv) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
         EntityManager em = emf.createEntityManager();
-        Cv19ddc fromDb = em.find(Cv19ddc.class, cv.getId());
+        Cv19ddc fromDb = em.find(Cv19ddc.class, cv.getCv19ddcPK());
         
-        fromDb.setYearnum(cv.getYearnum());
-        fromDb.setWeeknum(cv.getWeeknum());
+        fromDb.setCv19ddcPK(cv.getCv19ddcPK());
         fromDb.setNewCase(cv.getNewCase());
         fromDb.setTotalCase(cv.getTotalCase());
         fromDb.setNewCaseExcludeabroad(cv.getNewCaseExcludeabroad());
@@ -78,22 +76,25 @@ public class Cv19ddcTable {
         fromDb.setCaseNewDiff(cv.getCaseNewDiff());
         fromDb.setDeathNewPrev(cv.getDeathNewPrev());
         fromDb.setDeathNewDiff(cv.getDeathNewDiff());
-        //fromDb.setUpdateDate(cv.getUpdateDate());
+        fromDb.setUpdateDate(cv.getUpdateDate());
         
         em.getTransaction().begin();
         System.out.println("Updat data...");
-        System.out.println("Data : "+cv.getId());
+        System.out.println("Data : "+cv.getCv19ddcPK().toString());
+        boolean status = false;
         try {
             em.persist(fromDb);
             em.getTransaction().commit();
             System.out.println("Update Complete!!");
+            status = true;
         } catch (Exception e) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
-            e.printStackTrace();
             em.getTransaction().rollback();
             System.out.println("Update Incomplete");
+            status = false;
         } finally {
             em.close();
+            return status;
         }
     }
     public Cv19ddc findDataById(Integer id) {
@@ -106,15 +107,26 @@ public class Cv19ddcTable {
     public List<Cv19ddc> findAllData() {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
         EntityManager em = emf.createEntityManager();
-        List<Cv19ddc> cvList = (List<Cv19ddc>) em.createNamedQuery("Student.findAll").getResultList();
+        List<Cv19ddc> cvList = (List<Cv19ddc>) em.createNamedQuery("Cv19ddc.findAll").getResultList();
         em.close();
         return cvList;
     }
-    public List<Cv19ddc> findDataByName(String name) {
+    public List<Cv19ddc> findDataByYear(int yearnum) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
         EntityManager em = emf.createEntityManager();
-        Query query = em.createNamedQuery("Student.findByName");
-        query.setParameter("name", name);
+        Query query = em.createNamedQuery("Cv19ddc.findByYearnum");
+        query.setParameter("yearnum", yearnum);
+        List<Cv19ddc> cvList = (List<Cv19ddc>) query.getResultList();
+        em.close();
+        return cvList;
+    }
+    public List<Cv19ddc> findDataByYearAndWeek(int yearnum, int weeknum) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
+        EntityManager em = emf.createEntityManager();
+        String jpql = "SELECT c FROM Cv19ddc c WHERE c.cv19ddcPK.yearnum = :yearnum AND c.cv19ddcPK.weeknum = :weeknum";
+        Query query = em.createQuery(jpql);
+        query.setParameter("yearnum", yearnum);
+        query.setParameter("weeknum", weeknum);
         List<Cv19ddc> cvList = (List<Cv19ddc>) query.getResultList();
         em.close();
         return cvList;
@@ -122,16 +134,15 @@ public class Cv19ddcTable {
     public void removeData(Cv19ddc cv) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("cv19servicePU");
         EntityManager em = emf.createEntityManager();
-        Cv19ddc fromDb = em.find(Cv19ddc.class, cv.getId());
+        Cv19ddc fromDb = em.find(Cv19ddc.class, cv.getCv19ddcPK());
         em.getTransaction().begin();
         System.out.println("Remove data...");
-        System.out.println("Data : "+cv.getId());
+        System.out.println("Data : "+cv.getCv19ddcPK().toString());
         try {
             em.remove(fromDb);
             em.getTransaction().commit();
             System.out.println("Remove Complete!!");
         } catch (Exception e) {
-            e.printStackTrace();
             em.getTransaction().rollback();
             System.out.println("Remove Inomplete");
         } finally {
@@ -144,4 +155,5 @@ public class Cv19ddcTable {
             removeData(obj);
         }
     }
+    
 }

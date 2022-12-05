@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is Metro/2.4.0 (wsit240-7e98ff4; 2017-08-03T21:19:54+0200) JAXWS-RI/2.3.0 JAXWS-API/2.3.0 JAXB-RI/2.3.0 JAXB-API/2.3.0 svn-revision#unknown. --><xs:schema xmlns:tns="http://services/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://services/">
+
+<xs:element name="InsertAndUpdateData" type="tns:InsertAndUpdateData"/>
+
+<xs:element name="InsertAndUpdateDataResponse" type="tns:InsertAndUpdateDataResponse"/>
+
+<xs:element name="cv19Ddc" type="tns:cv19Ddc"/>
+
+<xs:element name="findAllData" type="tns:findAllData"/>
+
+<xs:element name="findAllDataResponse" type="tns:findAllDataResponse"/>
+
+<xs:element name="findDataByYear" type="tns:findDataByYear"/>
+
+<xs:element name="findDataByYearAndWeek" type="tns:findDataByYearAndWeek"/>
+
+<xs:element name="findDataByYearAndWeekResponse" type="tns:findDataByYearAndWeekResponse"/>
+
+<xs:element name="findDataByYearResponse" type="tns:findDataByYearResponse"/>
+
+<xs:element name="hello" type="tns:hello"/>
+
+<xs:element name="helloResponse" type="tns:helloResponse"/>
+
+<xs:complexType name="hello">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="helloResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="InsertAndUpdateData">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="InsertAndUpdateDataResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findDataByYear">
+<xs:sequence>
+<xs:element name="yearnum" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findDataByYearResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:cv19Ddc" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cv19Ddc">
+<xs:sequence>
+<xs:element name="caseForeign" type="xs:int" minOccurs="0"/>
+<xs:element name="caseNewDiff" type="xs:int" minOccurs="0"/>
+<xs:element name="caseNewPrev" type="xs:int" minOccurs="0"/>
+<xs:element name="casePrison" type="xs:int" minOccurs="0"/>
+<xs:element name="caseWalkin" type="xs:int" minOccurs="0"/>
+<xs:element name="cv19ddcPK" type="tns:cv19DdcPK" minOccurs="0"/>
+<xs:element name="deathNewDiff" type="xs:int" minOccurs="0"/>
+<xs:element name="deathNewPrev" type="xs:int" minOccurs="0"/>
+<xs:element name="newCase" type="xs:int" minOccurs="0"/>
+<xs:element name="newCaseExcludeabroad" type="xs:int" minOccurs="0"/>
+<xs:element name="newDeath" type="xs:int" minOccurs="0"/>
+<xs:element name="newRecovered" type="xs:int" minOccurs="0"/>
+<xs:element name="totalCase" type="xs:int" minOccurs="0"/>
+<xs:element name="totalCaseExcludeabroad" type="xs:int" minOccurs="0"/>
+<xs:element name="totalDeath" type="xs:int" minOccurs="0"/>
+<xs:element name="totalRecovered" type="xs:int" minOccurs="0"/>
+<xs:element name="updateDate" type="xs:dateTime" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cv19DdcPK">
+<xs:sequence>
+<xs:element name="weeknum" type="xs:int"/>
+<xs:element name="yearnum" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findAllData">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="findAllDataResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:cv19Ddc" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findDataByYearAndWeek">
+<xs:sequence>
+<xs:element name="yearnum" type="xs:int"/>
+<xs:element name="weeknum" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="findDataByYearAndWeekResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:cv19Ddc" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

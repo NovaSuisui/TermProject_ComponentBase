@@ -7,16 +7,14 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,9 +26,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cv19ddc.findAll", query = "SELECT c FROM Cv19ddc c"),
-    @NamedQuery(name = "Cv19ddc.findById", query = "SELECT c FROM Cv19ddc c WHERE c.id = :id"),
-    @NamedQuery(name = "Cv19ddc.findByYearnum", query = "SELECT c FROM Cv19ddc c WHERE c.yearnum = :yearnum"),
-    @NamedQuery(name = "Cv19ddc.findByWeeknum", query = "SELECT c FROM Cv19ddc c WHERE c.weeknum = :weeknum"),
+    @NamedQuery(name = "Cv19ddc.findByYearnum", query = "SELECT c FROM Cv19ddc c WHERE c.cv19ddcPK.yearnum = :yearnum"),
+    @NamedQuery(name = "Cv19ddc.findByWeeknum", query = "SELECT c FROM Cv19ddc c WHERE c.cv19ddcPK.weeknum = :weeknum"),
     @NamedQuery(name = "Cv19ddc.findByNewCase", query = "SELECT c FROM Cv19ddc c WHERE c.newCase = :newCase"),
     @NamedQuery(name = "Cv19ddc.findByTotalCase", query = "SELECT c FROM Cv19ddc c WHERE c.totalCase = :totalCase"),
     @NamedQuery(name = "Cv19ddc.findByNewCaseExcludeabroad", query = "SELECT c FROM Cv19ddc c WHERE c.newCaseExcludeabroad = :newCaseExcludeabroad"),
@@ -50,15 +47,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Cv19ddc implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "ID")
-    private Integer id;
-    @Column(name = "YEARNUM")
-    private Integer yearnum;
-    @Column(name = "WEEKNUM")
-    private Integer weeknum;
+    @EmbeddedId
+    protected Cv19ddcPK cv19ddcPK;
     @Column(name = "NEW_CASE")
     private Integer newCase;
     @Column(name = "TOTAL_CASE")
@@ -96,32 +86,20 @@ public class Cv19ddc implements Serializable {
     public Cv19ddc() {
     }
 
-    public Cv19ddc(Integer id) {
-        this.id = id;
+    public Cv19ddc(Cv19ddcPK cv19ddcPK) {
+        this.cv19ddcPK = cv19ddcPK;
     }
 
-    public Integer getId() {
-        return id;
+    public Cv19ddc(int yearnum, int weeknum) {
+        this.cv19ddcPK = new Cv19ddcPK(yearnum, weeknum);
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Cv19ddcPK getCv19ddcPK() {
+        return cv19ddcPK;
     }
 
-    public Integer getYearnum() {
-        return yearnum;
-    }
-
-    public void setYearnum(Integer yearnum) {
-        this.yearnum = yearnum;
-    }
-
-    public Integer getWeeknum() {
-        return weeknum;
-    }
-
-    public void setWeeknum(Integer weeknum) {
-        this.weeknum = weeknum;
+    public void setCv19ddcPK(Cv19ddcPK cv19ddcPK) {
+        this.cv19ddcPK = cv19ddcPK;
     }
 
     public Integer getNewCase() {
@@ -255,7 +233,7 @@ public class Cv19ddc implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (cv19ddcPK != null ? cv19ddcPK.hashCode() : 0);
         return hash;
     }
 
@@ -266,7 +244,7 @@ public class Cv19ddc implements Serializable {
             return false;
         }
         Cv19ddc other = (Cv19ddc) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.cv19ddcPK == null && other.cv19ddcPK != null) || (this.cv19ddcPK != null && !this.cv19ddcPK.equals(other.cv19ddcPK))) {
             return false;
         }
         return true;
@@ -274,7 +252,7 @@ public class Cv19ddc implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Cv19ddc[ id=" + id + " ]";
+        return "model.Cv19ddc[ cv19ddcPK=" + cv19ddcPK + " ]";
     }
     
 }
